@@ -2,7 +2,7 @@ FROM runpod/pytorch:2.0.1-py3.10-cuda11.8.0-devel
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 RUN mkdir data
-RUN apt-get install ffmpeg -y
+RUN apt-get update && apt-get upgrade -y && apt-get install --no-install-recommends ffmpeg -y
 WORKDIR /data
 
 # Install Python dependencies (Worker Template)
