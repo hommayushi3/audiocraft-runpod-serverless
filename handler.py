@@ -28,7 +28,7 @@ def encode_file(file_name):
     return encoded.decode('utf-8')
 
 def inference(event) -> Union[str, Generator[str, None, None]]:
-    logging.info(event)
+    logging.info("Starting inference")
     job_input = event["input"]
     if not job_input:
         raise ValueError("No input provided")
