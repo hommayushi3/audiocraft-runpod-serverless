@@ -33,6 +33,7 @@ def inference(event) -> Union[str, Generator[str, None, None]]:
     if not job_input:
         raise ValueError("No input provided")
     model = load_model()
+    logging.info("Model loaded")
     model.set_generation_params(duration=job_input.pop("duration", 10))
     descriptions = job_input.pop("descriptions", None)
 
@@ -52,13 +53,14 @@ def inference(event) -> Union[str, Generator[str, None, None]]:
         outputs = model.generate_with_chroma(descriptions, melody[None].expand(3, -1, -1), sr)
     else:
         outputs = model.generate(descriptions)
+    logging.info("Inference complete")
 
     output_files = {}
     for idx, one_wav in enumerate(outputs):
         # Will save under {idx}.wav, with loudness normalization at -14 db LUFS.
         audio_write(f'{idx}', one_wav.cpu(), model.sample_rate, strategy="loudness", loudness_compressor=True)
         output_files[idx] = encode_file(f'{idx}.wav')
-
+    logging.info("Output files written")
     return json.dumps(output_files)
 
 runpod.serverless.start({"handler": inference})

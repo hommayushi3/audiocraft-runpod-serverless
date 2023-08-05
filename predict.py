@@ -10,7 +10,7 @@ endpoint_id = os.environ["RUNPOD_ENDPOINT_ID"]
 URI = f"https://api.runpod.ai/v2/{endpoint_id}/run"
 
 
-def run(params={}, stream=False):
+def run(descriptions=None, duration=None, melody=None, stream=False):
     request = params
 
     response = requests.post(URI, json=dict(input=request), headers = {
@@ -36,7 +36,6 @@ def stream_output(task_id, stream=False):
             response = requests.get(url, headers=headers)
             if response.status_code == 200:
                 data = response.json()
-                print(data)
                 if data.get('status') == 'COMPLETED':
                     new_output = data['output']
                     return new_output
@@ -71,6 +70,6 @@ if __name__ == '__main__':
     parser.add_argument('-p', '--params_json', type=str, help='JSON string of generation params')
     args = parser.parse_args()
     params = json.loads(args.params_json) if args.params_json else "{}"
-    outputs = json.loads(run(params=params))
+    outputs = json.loads(run(**params))
     for k, v in outputs.items():
         decode_b64_to_file(outputs[k], k)
