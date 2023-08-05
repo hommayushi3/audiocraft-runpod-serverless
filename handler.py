@@ -31,9 +31,8 @@ def inference(event) -> Union[str, Generator[str, None, None]]:
     logging.info(event)
     job_input = event["input"]
     if not job_input:
-        load_model()
         raise ValueError("No input provided")
-    
+    model = load_model()
     model.set_generation_params(duration=job_input.pop("duration", 10))
     descriptions = job_input.pop("descriptions", None)
 
