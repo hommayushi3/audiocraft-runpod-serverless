@@ -1,6 +1,7 @@
 import logging
 import os
 import torchaudio
+from typing import Union, Generator
 from audiocraft.models import MusicGen
 from audiocraft.data.audio import audio_write
 from huggingface_hub import snapshot_download
