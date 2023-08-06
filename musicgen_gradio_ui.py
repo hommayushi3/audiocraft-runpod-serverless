@@ -25,10 +25,10 @@ iface = gr.Interface(
     [
         gr.components.Textbox(lines=1, value="lo-fi piano music", label="Description of Music"),
         gr.components.Slider(minimum=1, maximum=30, step=1, value=15, label="Duration in seconds"),
-        gr.components.Slider(minimum=0, maximum=1, step=0.1, value=0.5, label="Temperature"),
-        gr.components.Slider(minimum=0, maximum=1, step=0.1, value=0.7, label="Top P"),
-        gr.components.Slider(minimum=0, maximum=100, step=5, value=50, label="Top K"),
-        gr.components.Slider(minimum=0, maximum=10, step=0.5, value=2, label="Extend Stride"),
+        gr.components.Slider(minimum=0, maximum=3, step=0.1, value=1, label="Temperature"),
+        gr.components.Slider(minimum=0, maximum=1, step=0.1, value=0, label="Top P"),
+        gr.components.Slider(minimum=100, maximum=400, step=5, value=250, label="Top K"),
+        gr.components.Slider(minimum=0, maximum=20, step=0.5, value=18, label="Extend Stride"),
         gr.components.Audio(label="Optional melody recording (WAV)", source="microphone", type="filepath")
     ],
     [
