@@ -2,3 +2,5 @@
 .github
 predict.py
 README.md
+*.wav
+musicgen_gradio_ui.py

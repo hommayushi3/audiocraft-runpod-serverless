@@ -34,7 +34,10 @@ def inference(event) -> Union[str, Generator[str, None, None]]:
         raise ValueError("No input provided")
     model = load_model()
     logging.info("Model loaded")
-    model.set_generation_params(duration=job_input.pop("duration", 10))
+
+    generation_params = job_input.pop("generation_params", {"duration": 10})
+    logging.info(generation_params)
+    model.set_generation_params(**generation_params)
     descriptions = job_input.pop("descriptions", None)
 
     sample_file_name = job_input.pop("encoded_music_file_name", None)
